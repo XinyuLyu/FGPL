@@ -5,7 +5,7 @@ if [ $1 == "1" ]; then
     export NUM_GUP=1
     echo "TRAINING Predcls"
     mode="Predcls_"
-    MODEL="vvv|1e3"
+    MODEL=""
     MODEL_NAME=${mode}${MODEL}
     mkdir ./checkpoints/${MODEL_NAME}/
     python ./tools/relation_train_net.py \
