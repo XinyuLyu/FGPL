@@ -20,7 +20,11 @@ The performance of current Scene Graph Generation models is severely hampered by
 ## Train
 ### Scene Graph Generation Model
 We provide scripts for training models with FGPL our model( in `scripts/885train_[motif/trans/vctree].sh`).
-
+The training script should be set up as follows: \
+    MODEL.ROI_RELATION_HEAD.USE_LOGITS_REWEIGHT  True \
+    MODEL.ROI_RELATION_HEAD.USE_CONTRA_LOSS  True \
+    MODEL.ROI_RELATION_HEAD.USE_CONTRA_BCE  True \
+    
 ### Model
 The trained transformer model can be download from [BaiDuYun](https://pan.baidu.com/s/1vbsFDIHI57o9HxIv5BJiZA) (Password: 5u2o)
 
