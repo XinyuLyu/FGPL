@@ -11,6 +11,7 @@ The performance of current Scene Graph Generation models is severely hampered by
 <div align=center><img height="400" width="600" src=abstract.png/></div>
 
 ## Framework
+Within our Fine-Grained Predicates Learning (FGPL) framework, shown below, we first construct a Predicate Lattice concerning context information to understand ubiquitous correlations among predicates. Then, utilizing the Predicate Lattice, we develop a Category Discriminating Loss and an Entity Discriminating Loss which help SGG models differentiate hard-to-distinguish predicates.
 <div align=center><img src=framework.png/></div>
 
 ## Visualization
@@ -23,33 +24,14 @@ All our experiments are trained using one NVIDIA GeForce RTX 3090, if you wanna 
 Follow [DATASET.md](DATASET.md) for instructions of dataset preprocessing.
 
 ## Train
-Follow the [instructions](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch) to install and use the code. 
-### Scene Graph Generation Model
-We provide scripts for training models with FGPL our model( in `scripts/885train_[motif/trans/vctree].sh`), and 
+Follow the [instructions](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch) to install and use the code. Also, we provide scripts for training models with FGPL our model (in `scripts/885train_[motif/trans/vctree].sh`), and 
 key commands for training script should be set up as follows：\
 
     python ./tools/relation_train_net.py \
-
     --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml" ("configs/e2e_relation_X_101_32_8_FPN_1x_motif_FGPL.yaml", ("configs/e2e_relation_X_101_32_8_FPN_1x_vctree_FGPL.yaml")) \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
-    
     MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True\
-    
     MODEL.ROI_RELATION_HEAD.PREDICTOR TransformerPredictor/VCTreePredictor/MotifPredictor \
-    
-    MODEL.ROI_RELATION_HEAD.PREDICT_USE_BIAS True \
-    
-    SOLVER.IMS_PER_BATCH 16 TEST.IMS_PER_BATCH $NUM_GUP \
-    
-    SOLVER.MAX_ITER 16000 SOLVER.BASE_LR 1e-3 \
-    
-    SOLVER.SCHEDULE.TYPE WarmupMultiStepLR \
-    
-    SOLVER.STEPS "(10000, 16000)" SOLVER.VAL_PERIOD 2000 \
-    
-    SOLVER.CHECKPOINT_PERIOD 4000 GLOVE_DIR ./datasets/vg/ \
-    
-    MODEL.PRETRAINED_DETECTOR_CKPT path_to_pretrained_fastercnn/model_final.pth \
     . 
     . 
     .
@@ -64,21 +46,15 @@ key commands for training script should be set up as follows：\
                       MODEL.ROI_RELATION_HEAD.CANDIDATE_NUMBER  5 \    
     OUTPUT_DIR ./checkpoints/${MODEL_NAME};
     
-
-
-### Model
-The trained models(Transformer-FGPL, Motif-FGPL, VCTree-FPGL) can be download from [BaiDuYun](https://pan.baidu.com/s/1vbsFDIHI57o9HxIv5BJiZA) (Password: 5u2o)\
-
-We realsed the weights for the pretained VCTree model on the Visual Genome dataset trained using both cross-entropy based and energy-based training.
-
-| Predcls                | SGCls                 | SGDet                 |
-|--------------------|--------------------|
-| [VCTree-Predcls](https://tinyurl.com/vctree-ebm-predcls) | [VCTree-SGCls](https://tinyurl.com/yxpt4n7w) || [VCTree-SGDets](https://tinyurl.com/yxpt4n7w) |
-| [Transformer-SGCLS](https://tinyurl.com/vctree-ebm-sgcls)   | [Transformer-SGCLS](https://tinyurl.com/vctree-ce-sgcls)   | [Transformer-SGCls](https://tinyurl.com/yxpt4n7w) |
-| [Motif-SGDET](https://tinyurl.com/vctree-ebm-sgdet)   | [Motif-SGDET](https://tinyurl.com/vctree-ce-sgdet)   | [Motif-SGCls](https://tinyurl.com/yxpt4n7w) |
-
 ## Test
-We provide `test.sh` for directly reproduce the results in our paper. Remember to set `MODEL.WEIGHT` as checkopints we provided and choose the corresponding dataset split in `DATASETS.TEST`.
+The trained models(Transformer-FGPL, Motif-FGPL, VCTree-FPGL) on Predcls\SGCLs\SGDet are released as below. We provide `test.sh` for directly reproduce the results in our paper. Remember to set `MODEL.WEIGHT` as checkopints we provided and choose the corresponding dataset split in `DATASETS.TEST`.
+
+
+| Predcls                | SGCLs                 | SGDet                 |
+|--------------------|--------------------|--------------------|
+| [VCTree-FGPL-Predcls](https://tinyurl.com/vctree-ebm-predcls) | [VCTree-FGPL-SGCLS](https://tinyurl.com/yxpt4n7w) | [VCTree-FGPL-SGDet](https://tinyurl.com/yxpt4n7w) |
+| [Transformer-FGPL-Predcls](https://tinyurl.com/vctree-ebm-sgcls)   | [Transformer-FGPL-SGCLS](https://tinyurl.com/vctree-ce-sgcls)   | [Transformer-FGPL-SGDet](https://tinyurl.com/yxpt4n7w) |
+| [Motif-FGPL-Predcls](https://tinyurl.com/vctree-ebm-sgdet)   | [Motif-FPGL-SGCLS](https://tinyurl.com/vctree-ce-sgdet)   | [Motif-FPGL-SGDet](https://tinyurl.com/yxpt4n7w) |
 
 ## Help
 Be free to contact me (xinyulyu68@gmail.com) if you have any questions!
