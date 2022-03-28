@@ -5,20 +5,8 @@ if [ $1 == "1" ]; then
     export NUM_GUP=1
     echo "TRAINING Predcls"
     mode="Predcls_"
-    MODEL="mmm|1e3" #"transformer_predcls_dist15_2k_KD0_8_KLt1_freq_TranN2C_1_0_KLt1_InitPreModel_lr1e4"
+    MODEL="" #"transformer_predcls_dist15_2k_KD0_8_KLt1_freq_TranN2C_1_0_KLt1_InitPreModel_lr1e4"
     MODEL_NAME=${mode}${MODEL}
-#    rm -rf ./checkpoints/${MODEL_NAME}/
-    mkdir ./checkpoints/${MODEL_NAME}/
-    cp ./tools/relation_train_net.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/data/datasets/visual_genome.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/roi_relation_predictors.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/loss.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/roi_heads.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/detector/generalized_rcnn.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/relation_head.py ./checkpoints/${MODEL_NAME}/
-    cp /home/lvxinyu/lib/scene-graph-benchmark_extension/scripts/885train_motif.sh ./checkpoints/${MODEL_NAME}/
-    cp /home/lvxinyu/lib/scene-graph-benchmark_extension/configs/e2e_relation_X_101_32_8_FPN_1x_motif.yaml ./checkpoints/${MODEL_NAME}/
-    #./checkpoints/transformer_bias_keeptop10/model_final.pth
     python ./tools/relation_train_net.py \
     --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_motif_FGPL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
