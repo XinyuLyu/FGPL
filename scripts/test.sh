@@ -5,7 +5,6 @@ if [ $1 == "0" ]; then
     export NUM_GUP=1
     echo "Testing SGDet"
     MODEL_NAME="Predcls_Transformer_miti_tail_log_four_session_threshold_0.9_2.0_contrastive_loss_0.1_miti_1.0_check/"
-    #OUTPUT_NAME="transformer_predcls_top20cls_unseen_Mattrans"
     MODEL_PATH=/mnt/hdd1/lvxinyu/datasets/visual_genome/model/checkpoints/${MODEL_NAME}
     OUTPUT_PATH=${MODEL_PATH}/inference_val/
     mkdir ${OUTPUT_PATH}
