@@ -8,14 +8,6 @@ if [ $1 == "1" ]; then
     MODEL="vvv|1e3"
     MODEL_NAME=${mode}${MODEL}
     mkdir ./checkpoints/${MODEL_NAME}/
-    cp ./tools/relation_train_net.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/data/datasets/visual_genome.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/roi_relation_predictors.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/loss.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/roi_heads.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/detector/generalized_rcnn.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/relation_head.py ./checkpoints/${MODEL_NAME}/
-    cp /home/lvxinyu/lib/scene-graph-benchmark_extension/scripts/885train_vctree.sh ./checkpoints/${MODEL_NAME}/
     python ./tools/relation_train_net.py \
     --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_vctree_FGPL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
