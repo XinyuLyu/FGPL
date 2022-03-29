@@ -52,9 +52,9 @@ The trained models(Transformer-FGPL, Motif-FGPL, VCTree-FPGL) on Predcls\SGCLs\S
 
 | Predcls                | SGCLs                 | SGDet                 |
 |--------------------|--------------------|--------------------|
-| [VCTree-FGPL-Predcls](https://tinyurl.com/vctree-ebm-predcls) | [VCTree-FGPL-SGCLS](https://tinyurl.com/yxpt4n7w) | [VCTree-FGPL-SGDet](https://tinyurl.com/yxpt4n7w) |
-| [Transformer-FGPL-Predcls](https://tinyurl.com/vctree-ebm-sgcls)   | [Transformer-FGPL-SGCLS](https://tinyurl.com/vctree-ce-sgcls)   | [Transformer-FGPL-SGDet](https://tinyurl.com/yxpt4n7w) |
-| [Motif-FGPL-Predcls](https://tinyurl.com/vctree-ebm-sgdet)   | [Motif-FPGL-SGCLS](https://tinyurl.com/vctree-ce-sgdet)   | [Motif-FPGL-SGDet](https://tinyurl.com/yxpt4n7w) |
+| [VCTree-FGPL-Predcls](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/Eok6ZaK5qXpNoSlbVFUUN1wBg0M9gCFIBOvegjImkIo8gA?e=dB0zSa) | [VCTree-FGPL-SGCLS](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/Enp8HTh7eV9Njtpehl0ARF4BNYRBpUXaDk2Fk3XoSLwkFw?e=qRtMNV) | [VCTree-FGPL-SGDet](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/EmW-bPnem2pJowHO8VzuCG0BGrSDILfNJbExr36PweYEvw?e=lpTGWB) |
+| [Transformer-FGPL-Predcls](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/EuJnkW0h8DtOqo7SlGYYM-kB_wVNTX4AlR60iYGGnrg1sw?e=9QhmdB)   | [Transformer-FGPL-SGCLS](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/EsgsaHtiL8ROgSYGaeQxt7EBjqH5p0PBc1kNbSL9oSXkPA?e=Snf8jp)   | [Transformer-FGPL-SGDet](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/Ei88EjODSRlIqivvpv_ptHwBVRQIcZ-gKIuXJH0FUr_S-w?e=zdXqno) |
+| [Motif-FGPL-Predcls](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/EvKzNYpi0lRBrw9GpK8GGBMB3s8vMQ0t0N1KqKlvfQPseg?e=jSgLhx)   | [Motif-FPGL-SGCLS](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/EgYUqzzmHGRPtcTcGh7hqOQBupOrijaCcb00jFtLiDAAfg?e=983fen)   | [Motif-FPGL-SGDet](https://stduestceducn-my.sharepoint.com/:f:/g/personal/202011081621_std_uestc_edu_cn/EhAXOXoRZaJBtXO_IALmxJ0BmppYCxOhhT7CCNQhWKYeiw?e=56vOzk) |
 
 ## Help
 Be free to contact me (xinyulyu68@gmail.com) if you have any questions!
