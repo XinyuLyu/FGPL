@@ -60,7 +60,7 @@ The trained models(Transformer-FGPL, Motif-FGPL, VCTree-FPGL) on Predcls\SGCLs\S
 Be free to contact me (xinyulyu68@gmail.com) if you have any questions!
 
 ## Acknowledgement
-The code is implemented based on [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch), and [SGG-G2S](https://github.com/ZhuGeKongKong/SGG-G2S). Thanks for their great works!
+The code is implemented based on [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch), and [SGG-G2S](https://github.com/ZhuGeKongKong/SGG-G2S). Thanks for their great works! 
 
 ## Bibtex
 
