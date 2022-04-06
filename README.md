@@ -37,11 +37,11 @@ key commands for training script should be set up as follows：\
     .
     (This is for FGPL) MODEL.ROI_RELATION_HEAD.USE_EXTRA_LOSS True \
     (This is for CDL) MODEL.ROI_RELATION_HEAD.USE_LOGITS_REWEIGHT  True \  
-    (This are paramter for CDL) MODEL.ROI_RELATION_HEAD.MITIGATION_FACTOR_HYPER  1.5 \
+    (These are paramters for CDL) MODEL.ROI_RELATION_HEAD.MITIGATION_FACTOR_HYPER  1.5 \
                       MODEL.ROI_RELATION_HEAD.COMPENSATION_FACTOR_HYPRT  2.0 \
     (This is for EDL) MODEL.ROI_RELATION_HEAD.USE_CONTRA_LOSS  True \ 
     (This is for EDL) MODEL.ROI_RELATION_HEAD.USE_CONTRA_BCE  True  \   
-    (This are parameter for EDL) MODEL.ROI_RELATION_HEAD.CONTRA_DISTANCE_LOSS_VALUE  0.6 \
+    (These are parameters for EDL) MODEL.ROI_RELATION_HEAD.CONTRA_DISTANCE_LOSS_VALUE  0.6 \
                       MODEL.ROI_RELATION_HEAD.CONTRA_DISTANCE_LOSS_COF  0.1 \
                       MODEL.ROI_RELATION_HEAD.CANDIDATE_NUMBER  5 \    
     OUTPUT_DIR ./checkpoints/${MODEL_NAME};
