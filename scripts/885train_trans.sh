@@ -7,7 +7,6 @@ if [ $1 == "0" ]; then
     mode="Predcls_"
     MODEL=""
     MODEL_NAME=${mode}${MODEL}
-    mkdir ./checkpoints/${MODEL_NAME}/
     python ./tools/relation_train_net.py \
     --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
