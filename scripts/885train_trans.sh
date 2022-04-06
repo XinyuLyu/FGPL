@@ -5,7 +5,7 @@ if [ $1 == "0" ]; then
     export NUM_GUP=1
     echo "TRAINING Predcls"
     mode="Predcls_"
-    MODEL=""
+    MODEL="transformer_FGPL"
     MODEL_NAME=${mode}${MODEL}
     python ./tools/relation_train_net.py \
     --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml" \
