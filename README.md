@@ -24,7 +24,7 @@ All our experiments are trained using one NVIDIA GeForce RTX 3090, if you wanna 
 Follow [DATASET.md](DATASET.md) for instructions of dataset preprocessing.
 
 ## Train
-Follow the [instructions](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch) to install and use the code. Also, we provide scripts for training models with FGPL our model (in `scripts/885train_[motif/trans/vctree].sh`), and 
+Follow the [instructions](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch) to install and use the code. Also, we provide scripts for training models with FGPL our model (in `scripts/885train_[motif/trans/vctree].sh`(https://github.com/XinyuLyu/FGPL/tree/master/scripts)), and 
 key commands for training script should be set up as follows：\
 
     python ./tools/relation_train_net.py \
