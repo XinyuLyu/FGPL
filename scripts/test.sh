@@ -16,10 +16,8 @@ if [ $1 == "0" ]; then
     MODEL.ROI_RELATION_HEAD.PREDICT_USE_BIAS True \
     DTYPE "float32" \
     SOLVER.IMS_PER_BATCH 16 TEST.IMS_PER_BATCH $NUM_GUP \
-    SOLVER.MAX_ITER 4000 SOLVER.BASE_LR 1e-3 \
     SOLVER.SCHEDULE.TYPE WarmupMultiStepLR \
-    SOLVER.STEPS "(10000, 16000)" SOLVER.VAL_PERIOD 2000 \
-    SOLVER.CHECKPOINT_PERIOD 4000 GLOVE_DIR ./datasets/vg/ \
+    GLOVE_DIR ./datasets/vg/ \
     MODEL.PRETRAINED_DETECTOR_CKPT ./checkpoints/pretrained_faster_rcnn/model_final.pth \
     MODEL.WEIGHT ./checkpoints/${MODEL_NAME}/model_final.pth \
     MODEL.ROI_RELATION_HEAD.VAL_ALPHA 0 \
