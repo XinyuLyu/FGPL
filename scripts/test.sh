@@ -9,7 +9,7 @@ if [ $1 == "0" ]; then
     OUTPUT_PATH=${MODEL_PATH}/inference_val/
     mkdir ${OUTPUT_PATH}
     python  ./tools/relation_test_net.py \
-    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml" \
+    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FPGL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
     MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True\
     MODEL.ROI_RELATION_HEAD.PREDICTOR TransformerPredictor \
