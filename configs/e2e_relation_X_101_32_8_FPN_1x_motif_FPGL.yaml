@@ -106,10 +106,11 @@ MODEL:
     COMPENSATION_FACTOR_HYPRT: 2.0
     USE_CATEGORY_REWEIGHT: False
     USE_BCE: False
+    USE_BCE_BATCH: False
     PRED_WEIGHT_BETA: 0.99999
     USE_CDE: False
     USE_FOCAL: False
-    FOCAL_GAMMA: 2.0
+    FOCAL_GAMMA: 5.0
     USE_CONTRA_LOSS: False
     USE_DISTANCE_LOSS: False
     USE_CONTRA_BCE: False
@@ -137,7 +138,7 @@ MODEL:
       EFFECT_ANALYSIS: True
     ############### Parameters for Transformer Predictor ##############
     TRANSFORMER:
-      DROPOUT_RATE: 0.1
+      DROPOUT_RATE: 0.3
       OBJ_LAYER: 4
       REL_LAYER: 2
       NUM_HEAD: 8
