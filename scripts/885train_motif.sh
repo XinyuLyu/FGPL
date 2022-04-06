@@ -9,7 +9,7 @@ if [ $1 == "1" ]; then
     MODEL_NAME=${mode}${MODEL}
     mkdir ./checkpoints/${MODEL_NAME}/
     python ./tools/relation_train_net.py \
-    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_motif_FGPL.yaml" \
+    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_motif_FPGL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
     MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True\
     MODEL.ROI_RELATION_HEAD.PREDICTOR MotifPredictor \
