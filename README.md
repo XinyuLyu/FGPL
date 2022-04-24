@@ -28,7 +28,7 @@ Follow the [instructions](https://github.com/KaihuaTang/Scene-Graph-Benchmark.py
 key commands for training script should be set up as follows：\
 
     python ./tools/relation_train_net.py \
-    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml" ("configs/e2e_relation_X_101_32_8_FPN_1x_motif_FGPL.yaml", ("configs/e2e_relation_X_101_32_8_FPN_1x_vctree_FGPL.yaml")) \
+    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml"/"configs/e2e_relation_X_101_32_8_FPN_1x_motif_FGPL.yaml"/ "configs/e2e_relation_X_101_32_8_FPN_1x_vctree_FGPL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
     MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True\
     MODEL.ROI_RELATION_HEAD.PREDICTOR TransformerPredictor/VCTreePredictor/MotifPredictor \
