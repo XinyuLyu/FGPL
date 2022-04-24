@@ -18,7 +18,7 @@ Within our Fine-Grained Predicates Learning (FGPL) framework, shown below, we fi
 <div align=center><img  height="600" width="800" src=visual_sp-1.png/></div>
 
 ## Device
-All our experiments are trained using one NVIDIA GeForce RTX 3090, if you wanna run it on your own device, make sure to follow distributed training instructions in [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch). 
+All our experiments are conducted on one NVIDIA GeForce RTX 3090, if you wanna run it on your own device, make sure to follow distributed training instructions in [Scene-Graph-Benchmark.pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch). 
 
 ## Dataset
 Follow [DATASET.md](DATASET.md) for instructions of dataset preprocessing.
