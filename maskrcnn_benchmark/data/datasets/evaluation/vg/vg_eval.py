@@ -142,13 +142,13 @@ def do_vg_evaluation(
         eval_mean_recall.register_container(mode)
         evaluator['eval_mean_recall'] = eval_mean_recall
 
-        if mode != 'sgdet':
-            eval_conf_mat = SGConfMat(result_dict, num_rel_category, dataset.ind_to_predicates)
-            eval_conf_mat_soft = SSGConfMat(result_dict, num_rel_category, dataset.ind_to_predicates)
-            eval_conf_mat.register_container(mode)
-            eval_conf_mat_soft.register_container(mode)
-            evaluator['eval_confusion_matrix'] = eval_conf_mat
-            evaluator['eval_confusion_matrix_soft'] = eval_conf_mat_soft
+
+        eval_conf_mat = SGConfMat(result_dict, num_rel_category, dataset.ind_to_predicates)
+        eval_conf_mat_soft = SSGConfMat(result_dict, num_rel_category, dataset.ind_to_predicates)
+        eval_conf_mat.register_container(mode)
+        eval_conf_mat_soft.register_container(mode)
+        evaluator['eval_confusion_matrix'] = eval_conf_mat
+        evaluator['eval_confusion_matrix_soft'] = eval_conf_mat_soft
 
         dp = SGDp(result_dict)
         bht = SGGroup_Mean_Recall(result_dict)
@@ -260,10 +260,10 @@ def evaluate_relation_of_one_image(groundtruth, prediction, global_container, ev
     # to calculate accuracy, only consider those gt pairs
     # This metric is used by "Graphical Contrastive Losses for Scene Graph Parsing"
     # for sgcls and predcls
-    if mode != 'sgdet':
-        evaluator['eval_pair_accuracy'].prepare_gtpair(local_container)
-        evaluator['eval_confusion_matrix'].prepare_gtpair(local_container)
-        evaluator['eval_confusion_matrix_soft'].prepare_gtpair_soft(local_container)
+
+    evaluator['eval_pair_accuracy'].prepare_gtpair(local_container)
+    evaluator['eval_confusion_matrix'].prepare_gtpair(local_container)
+    evaluator['eval_confusion_matrix_soft'].prepare_gtpair_soft(local_container)
 
         # to calculate the prior label based on statistics
     evaluator['eval_zeroshot_recall'].prepare_zeroshot(global_container, local_container)
@@ -316,9 +316,9 @@ def evaluate_relation_of_one_image(groundtruth, prediction, global_container, ev
     # GT Pair Accuracy
     evaluator['eval_pair_accuracy'].calculate_recall(global_container, local_container, mode)
     # GT Confusion Matrix
-    if mode != 'sgdet':
-        evaluator['eval_confusion_matrix'].calculate_confusion_matrix(global_container, local_container, mode)
-        evaluator['eval_confusion_matrix_soft'].calculate_confusion_matrix_soft(global_container, local_container, mode)
+
+    evaluator['eval_confusion_matrix'].calculate_confusion_matrix(global_container, local_container, mode)
+    evaluator['eval_confusion_matrix_soft'].calculate_confusion_matrix_soft(global_container, local_container, mode)
 
     # Mean Recall
     evaluator['eval_mean_recall'].collect_mean_recall_items(global_container, local_container, mode)
