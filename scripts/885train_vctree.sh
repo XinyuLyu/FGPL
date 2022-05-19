@@ -5,19 +5,11 @@ if [ $1 == "1" ]; then
     export NUM_GUP=1
     echo "TRAINING Predcls"
     mode="Predcls_"
-    MODEL="vvv|1e3"
+    MODEL="VCTree_FGPL"
     MODEL_NAME=${mode}${MODEL}
     mkdir ./checkpoints/${MODEL_NAME}/
-    cp ./tools/relation_train_net.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/data/datasets/visual_genome.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/roi_relation_predictors.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/loss.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/roi_heads.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/detector/generalized_rcnn.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/relation_head.py ./checkpoints/${MODEL_NAME}/
-    cp /home/lvxinyu/lib/scene-graph-benchmark_extension/scripts/885train_vctree.sh ./checkpoints/${MODEL_NAME}/
     python ./tools/relation_train_net.py \
-    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_vctree_FGPL.yaml" \
+    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_vctree_FPGL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
     MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True\
     MODEL.ROI_RELATION_HEAD.PREDICTOR VCTreePredictor \
@@ -38,6 +30,5 @@ if [ $1 == "1" ]; then
     MODEL.ROI_RELATION_HEAD.CONTRA_DISTANCE_LOSS_VALUE  0.6 \
     MODEL.ROI_RELATION_HEAD.CONTRA_DISTANCE_LOSS_COF  0.1 \
     MODEL.ROI_RELATION_HEAD.CANDIDATE_NUMBER  5 \
-    OUTPUT_DIR ./checkpoints/${MODEL_NAME} \
-    MODEL.ROI_RELATION_HEAD.TRANSFORMER.DROPOUT_RATE 0.3 ;
+    OUTPUT_DIR ./checkpoints/${MODEL_NAME} ;
 fi

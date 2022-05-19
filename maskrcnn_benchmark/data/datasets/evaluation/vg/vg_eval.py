@@ -13,14 +13,14 @@ from maskrcnn_benchmark.structures.bounding_box import BoxList
 from maskrcnn_benchmark.structures.boxlist_ops import boxlist_iou
 from maskrcnn_benchmark.utils.miscellaneous import intersect_2d, argsort_desc, bbox_overlaps
 from maskrcnn_benchmark.data.datasets.evaluation.vg.sgg_eval import SGRecall, SGNoGraphConstraintRecall, SGZeroShotRecall, SGPairAccuracy, SGMeanRecall, SGAccumulateRecall
-from maskrcnn_benchmark.data.datasets.evaluation.vg.sgg_eval import SGConfMat, SSGConfMat
+from maskrcnn_benchmark.data.datasets.evaluation.vg.sgg_eval import SGConfMat, SSGConfMat, SGDp, SGGroup_Mean_Recall
 def do_vg_evaluation(
-    cfg,
-    dataset,
-    predictions,
-    output_folder,
-    logger,
-    iou_types,
+        cfg,
+        dataset,
+        predictions,
+        output_folder,
+        logger,
+        iou_types,
 ):
     # get zeroshot triplet
     zeroshot_triplet = torch.load("/home/lvxinyu/lib/scene-graph-benchmark/maskrcnn_benchmark/data/datasets/evaluation/vg/zeroshot_triplet.pytorch", map_location=torch.device("cpu")).long().numpy()
@@ -54,7 +54,7 @@ def do_vg_evaluation(
         groundtruths.append(gt)
 
     save_output(output_folder, groundtruths, predictions, dataset)
-    
+
     result_str = '\n' + '=' * 100 + '\n'
     if "bbox" in iou_types:
         # create a Coco-like object that we can use to evaluate detection!
@@ -76,9 +76,9 @@ def do_vg_evaluation(
             'info': {'description': 'use coco script for vg detection evaluation'},
             'images': [{'id': i} for i in range(len(groundtruths))],
             'categories': [
-                {'supercategory': 'person', 'id': i, 'name': name} 
+                {'supercategory': 'person', 'id': i, 'name': name}
                 for i, name in enumerate(dataset.ind_to_classes) if name != '__background__'
-                ],
+            ],
             'annotations': anns,
         }
         fauxcoco.createIndex()
@@ -97,7 +97,7 @@ def do_vg_evaluation(
             image_id = np.asarray([image_id]*len(box))
             cocolike_predictions.append(
                 np.column_stack((image_id, box, score, label))
-                )
+            )
             # logger.info(cocolike_predictions)
         cocolike_predictions = np.concatenate(cocolike_predictions, 0)
         # evaluate via coco API
@@ -108,7 +108,7 @@ def do_vg_evaluation(
         coco_eval.accumulate()
         coco_eval.summarize()
         mAp = coco_eval.stats[1]
-        
+
         result_str += 'Detection evaluation mAp=%.4f\n' % mAp
         result_str += '=' * 100 + '\n'
 
@@ -131,7 +131,7 @@ def do_vg_evaluation(
         eval_zeroshot_recall = SGZeroShotRecall(result_dict)
         eval_zeroshot_recall.register_container(mode)
         evaluator['eval_zeroshot_recall'] = eval_zeroshot_recall
-        
+
         # used by https://github.com/NVIDIA/ContrastiveLosses4VRD for sgcls and predcls
         eval_pair_accuracy = SGPairAccuracy(result_dict)
         eval_pair_accuracy.register_container(mode)
@@ -150,6 +150,13 @@ def do_vg_evaluation(
             evaluator['eval_confusion_matrix'] = eval_conf_mat
             evaluator['eval_confusion_matrix_soft'] = eval_conf_mat_soft
 
+        dp = SGDp(result_dict)
+        bht = SGGroup_Mean_Recall(result_dict)
+        dp.register_container(mode)
+        bht.register_container(mode)
+        evaluator['dp'] = dp
+        evaluator['Group_Mean_Recall'] = bht
+
         # prepare all inputs
         global_container = {}
         global_container['zeroshot_triplet'] = zeroshot_triplet
@@ -163,15 +170,20 @@ def do_vg_evaluation(
 
         for groundtruth, prediction in zip(groundtruths, predictions):
             evaluate_relation_of_one_image(groundtruth, prediction, global_container, evaluator)
-        
+
         # calculate mean recall
         eval_mean_recall.calculate_mean_recall(mode)
-        
+
+        evaluator['dp'].calculate_dp(mode)
+        evaluator['Group_Mean_Recall'].calculate_group_recall(mode)
+
         # print result
         result_str += eval_recall.generate_print_string(mode)
         result_str += eval_nog_recall.generate_print_string(mode)
         result_str += eval_zeroshot_recall.generate_print_string(mode)
         result_str += eval_mean_recall.generate_print_string(mode)
+        result_str += dp.generate_print_string(mode)
+        result_str += bht.generate_print_string(mode)
         if cfg.MODEL.ROI_RELATION_HEAD.USE_GT_BOX:
             result_str += eval_pair_accuracy.generate_print_string(mode)
         result_str += '=' * 100 + '\n'
@@ -200,16 +212,16 @@ def save_output(output_folder, groundtruths, predictions, dataset):
             groundtruth = [
                 [b[0], b[1], b[2], b[3], dataset.categories[l]] # xyxy, str
                 for b, l in zip(groundtruth.bbox.tolist(), groundtruth.get_field('labels').tolist())
-                ]
+            ]
             prediction = [
                 [b[0], b[1], b[2], b[3], dataset.categories[l]] # xyxy, str
                 for b, l in zip(prediction.bbox.tolist(), prediction.get_field('pred_labels').tolist())
-                ]
+            ]
             visual_info.append({
                 'img_file': img_file,
                 'groundtruth': groundtruth,
                 'prediction': prediction
-                })
+            })
         with open(os.path.join(output_folder, "visual_info.json"), "w") as f:
             json.dump(visual_info, f)
 
@@ -243,10 +255,10 @@ def evaluate_relation_of_one_image(groundtruth, prediction, global_container, ev
     local_container['pred_boxes'] = prediction.convert('xyxy').bbox.detach().cpu().numpy()                  # (#pred_objs, 4)
     local_container['pred_classes'] = prediction.get_field('pred_labels').long().detach().cpu().numpy()     # (#pred_objs, )
     local_container['obj_scores'] = prediction.get_field('pred_scores').detach().cpu().numpy()              # (#pred_objs, )
-    
+
 
     # to calculate accuracy, only consider those gt pairs
-    # This metric is used by "Graphical Contrastive Losses for Scene Graph Parsing" 
+    # This metric is used by "Graphical Contrastive Losses for Scene Graph Parsing"
     # for sgcls and predcls
     if mode != 'sgdet':
         evaluator['eval_pair_accuracy'].prepare_gtpair(local_container)
@@ -307,12 +319,15 @@ def evaluate_relation_of_one_image(groundtruth, prediction, global_container, ev
     if mode != 'sgdet':
         evaluator['eval_confusion_matrix'].calculate_confusion_matrix(global_container, local_container, mode)
         evaluator['eval_confusion_matrix_soft'].calculate_confusion_matrix_soft(global_container, local_container, mode)
+
     # Mean Recall
     evaluator['eval_mean_recall'].collect_mean_recall_items(global_container, local_container, mode)
     # Zero shot Recall
     evaluator['eval_zeroshot_recall'].calculate_recall(global_container, local_container, mode)
 
-    return 
+
+
+    return
 
 
 
@@ -326,26 +341,26 @@ def convert_relation_matrix_to_triplets(relation):
 
 
 def generate_attributes_target(attributes, num_attributes):
-        """
-        from list of attribute indexs to [1,0,1,0,...,0,1] form
-        """
-        max_att = attributes.shape[1]
-        num_obj = attributes.shape[0]
+    """
+    from list of attribute indexs to [1,0,1,0,...,0,1] form
+    """
+    max_att = attributes.shape[1]
+    num_obj = attributes.shape[0]
 
-        with_attri_idx = (attributes.sum(-1) > 0).long()
-        without_attri_idx = 1 - with_attri_idx
-        num_pos = int(with_attri_idx.sum())
-        num_neg = int(without_attri_idx.sum())
-        assert num_pos + num_neg == num_obj
+    with_attri_idx = (attributes.sum(-1) > 0).long()
+    without_attri_idx = 1 - with_attri_idx
+    num_pos = int(with_attri_idx.sum())
+    num_neg = int(without_attri_idx.sum())
+    assert num_pos + num_neg == num_obj
 
-        attribute_targets = torch.zeros((num_obj, num_attributes), device=attributes.device).float()
+    attribute_targets = torch.zeros((num_obj, num_attributes), device=attributes.device).float()
 
-        for idx in torch.nonzero(with_attri_idx).squeeze(1).tolist():
-            for k in range(max_att):
-                att_id = int(attributes[idx, k])
-                if att_id == 0:
-                    break
-                else:
-                    attribute_targets[idx, att_id] = 1
+    for idx in torch.nonzero(with_attri_idx).squeeze(1).tolist():
+        for k in range(max_att):
+            att_id = int(attributes[idx, k])
+            if att_id == 0:
+                break
+            else:
+                attribute_targets[idx, att_id] = 1
 
-        return attribute_targets
+    return attribute_targets

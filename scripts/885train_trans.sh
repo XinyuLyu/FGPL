@@ -5,19 +5,11 @@ if [ $1 == "0" ]; then
     export NUM_GUP=1
     echo "TRAINING Predcls"
     mode="Predcls_"
-    MODEL="ttt|1e-3"
+    MODEL="transformer_FGPL"
     MODEL_NAME=${mode}${MODEL}
     mkdir ./checkpoints/${MODEL_NAME}/
-    cp ./tools/relation_train_net.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/data/datasets/visual_genome.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/roi_relation_predictors.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/loss.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/roi_heads.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/detector/generalized_rcnn.py ./checkpoints/${MODEL_NAME}/
-    cp ./maskrcnn_benchmark/modeling/roi_heads/relation_head/relation_head.py ./checkpoints/${MODEL_NAME}/
-    cp /home/lvxinyu/lib/scene-graph-benchmark_extension/scripts/885train_trans.sh ./checkpoints/${MODEL_NAME}/
     python ./tools/relation_train_net.py \
-    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FGPL.yaml" \
+    --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_transformer_FPGL.yaml" \
     MODEL.ROI_RELATION_HEAD.USE_GT_BOX True \
     MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True\
     MODEL.ROI_RELATION_HEAD.PREDICTOR TransformerPredictor \
@@ -29,8 +21,6 @@ if [ $1 == "0" ]; then
     SOLVER.STEPS "(10000, 16000)" SOLVER.VAL_PERIOD 2000 \
     SOLVER.CHECKPOINT_PERIOD 4000 GLOVE_DIR ./datasets/vg/ \
     MODEL.PRETRAINED_DETECTOR_CKPT /mnt/hdd1/lvxinyu/datasets/visual_genome/model/checkpoints/pretrained_faster_rcnn/model_final.pth \
-    MODEL.ROI_RELATION_HEAD.WITH_CLEAN_CLASSIFIER False \
-    MODEL.ROI_RELATION_HEAD.WITH_TRANSFER_CLASSIFIER True  \
     MODEL.ROI_RELATION_HEAD.USE_EXTRA_LOSS True \
     MODEL.ROI_RELATION_HEAD.USE_LOGITS_REWEIGHT  True \
     MODEL.ROI_RELATION_HEAD.MITIGATION_FACTOR_HYPER  1.5 \
