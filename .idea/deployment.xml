@@ -2,6 +2,13 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
+      <paths name="lvxinyu@121.48.161.100:12315">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="lvxinyu@121.48.161.147:12315">
         <serverdata>
           <mappings>
@@ -26,8 +33,14 @@
       <paths name="lvxinyu@121.48.165.7:885 password">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/lvxinyu/lib/scene-graph-benchmark" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/lvxinyu/lib/scene-graph-benchmark_extension/checkpoints" />
+            <excludedPath path="/home/lvxinyu/lib/scene-graph-benchmark_extension/datasets" />
+            <excludedPath path="/home/lvxinyu/lib/scene-graph-benchmark/checkpoints" />
+            <excludedPath path="/home/lvxinyu/lib/scene-graph-benchmark/datasets" />
+          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="lvxinyu@121.48.165.7:885 password (1)">
