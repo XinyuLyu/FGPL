@@ -1,0 +1,1 @@
+'/home/lvxinyu/lib/scene-graph-benchmark/checkpoints/checkpoints'
