@@ -171,7 +171,7 @@ class VGDataset(torch.utils.data.Dataset):
         fg_matrix, bg_matrix, cfg= get_VG_statistic(img_dir=self.img_dir, roidb_file=self.roidb_file,dict_file=self.dict_file,
                                                  image_file=self.image_file, must_overlap=True, cfg=cfg)
         eps = cfg.SOLVER.EPSILON
-        eps = 1e-3
+        eps = 1e3
         bg_matrix += 1
         fg_matrix[:, :, 0] = bg_matrix
         pred_dist = np.log(fg_matrix / fg_matrix.sum(2)[:, :, None] + eps)

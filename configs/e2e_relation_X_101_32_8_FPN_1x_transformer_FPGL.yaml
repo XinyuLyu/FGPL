@@ -114,7 +114,7 @@ MODEL:
     CONTEXT_REL_LAYER: 1
     ###
     TRANSFORMER:
-      DROPOUT_RATE: 0.3
+      DROPOUT_RATE: 0.1
       OBJ_LAYER: 4
       REL_LAYER: 2
       NUM_HEAD: 8

@@ -155,7 +155,7 @@ def do_vg_evaluation(
             dp.register_container(mode)
             bht.register_container(mode)
             evaluator['dp'] = dp
-            # evaluator['Group_Mean_Recall'] = bht
+            evaluator['Group_Mean_Recall'] = bht
 
         # prepare all inputs
         global_container = {}
@@ -175,7 +175,7 @@ def do_vg_evaluation(
         eval_mean_recall.calculate_mean_recall(mode)
         if mode != 'sgdet':
             evaluator['dp'].calculate_dp(mode)
-            # evaluator['Group_Mean_Recall'].calculate_group_recall(mode)
+            evaluator['Group_Mean_Recall'].calculate_group_recall(mode)
 
         # print result
         result_str += eval_recall.generate_print_string(mode)

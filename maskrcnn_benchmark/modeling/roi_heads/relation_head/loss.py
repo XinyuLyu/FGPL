@@ -211,7 +211,7 @@ class RelationLossComputation(object):
 
 
         elif self.relation_predictor == 'MotifPredictor':
-            self.pred_adj_np = np.load('/home/lvxinyu/lib/scene-graph-benchmark/misc/conf_mat_transformer_train.npy')
+            self.pred_adj_np = np.load('/home/lvxinyu/lib/scene-graph-benchmark_extension/misc/conf_mat_transformer_train.npy')
             self.pred_adj_np[0, :] = 0.0
             self.pred_adj_np[:, 0] = 0.0
             self.pred_adj_np[0, 0] = 1.0
@@ -221,7 +221,7 @@ class RelationLossComputation(object):
             self.pred_adj_np_diag = torch.diag(self.pred_adj_np)
 
         else:
-            self.pred_adj_np = np.load('/home/lvxinyu/lib/scene-graph-benchmark/misc/conf_mat_vctree_train.npy')
+            self.pred_adj_np = np.load('/home/lvxinyu/lib/scene-graph-benchmark_extension/misc/conf_mat_vctree_train.npy')
             self.pred_adj_np[0, :] = 0.0
             self.pred_adj_np[:, 0] = 0.0
             self.pred_adj_np[0, 0] = 1.0

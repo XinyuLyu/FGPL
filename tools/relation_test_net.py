@@ -84,15 +84,15 @@ def main():
         iou_types = iou_types + ("relations",)
     if cfg.MODEL.ATTRIBUTE_ON:
         iou_types = iou_types + ("attributes",)
-    output_folders = [None] * len(cfg.DATASETS.TEST)
-    dataset_names = cfg.DATASETS.TEST
+    output_folders = [None] * len(cfg.DATASETS.VAL)
+    dataset_names = cfg.DATASETS.VAL
     if cfg.OUTPUT_DIR:
         for idx, dataset_name in enumerate(dataset_names):
-            output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_test", dataset_name)
+            output_folder = os.path.join(cfg.OUTPUT_DIR, "inference_val", dataset_name)
             mkdir(output_folder)
             output_folders[idx] = output_folder
     #data_loaders_val = make_data_loader_val(cfg, mode="train", is_distributed=distributed)
-    data_loaders_val = make_data_loader(cfg, mode="test", is_distributed=distributed)
+    data_loaders_val = make_data_loader(cfg, mode="val", is_distributed=distributed)
     logger.info("cfg.SOLVER.EPSILON:\n{}".format(cfg.SOLVER.EPSILON))
     for output_folder, dataset_name, data_loader_val in zip(output_folders, dataset_names, data_loaders_val):
         inference(
